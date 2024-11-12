@@ -1,11 +1,11 @@
 # Node modules
 node_modules/
 
-# Logs
+# # Logs
 logs/
 *.log
 
-# OS-specific files
+# # OS-specific files
 .DS_Store
 Thumbs.db
 
@@ -17,8 +17,8 @@ Thumbs.db
 .env
 
 # Build directories
-dist/
-build/
+dist
+build
 
 # Temporary files
 *.tmp
