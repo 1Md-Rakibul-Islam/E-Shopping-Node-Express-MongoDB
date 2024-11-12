@@ -1,0 +1,24 @@
+# Node modules
+node_modules/
+
+# Logs
+logs/
+*.log
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# IDE-specific files (e.g., VS Code, JetBrains)
+.vscode/
+.idea/
+
+# Environment files
+.env
+
+# Build directories
+dist/
+build/
+
+# Temporary files
+*.tmp
