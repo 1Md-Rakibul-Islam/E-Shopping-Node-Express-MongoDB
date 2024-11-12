@@ -50,8 +50,66 @@ const getAllProducts = async (req: Request, res: Response) => {
     };
 }
 
+// delete single product
+const updateSingleProduct = async (req: Request, res: Response) => {
+    try {
+
+        const { productId } = req.params;
+
+        const productData = req.body;
+
+        console.log(productData, productId);
+
+        const result = await ProductServices.updateSingleProductIntoDb(productId, productData);
+
+        res.status(200).json({
+            success: true,
+            message: result.modifiedCount > 0 ? "Product updated successfully" : "Product is not updated",
+            data: result
+        })
+
+    } catch (error) {
+
+        res.status(500).json({
+            success: false,
+            message: (error as Error) || "Product deletion failed",
+            error: error
+        })
+
+    };
+}
+
+// delete single product
+const deleteSingleProduct = async (req: Request, res: Response) => {
+    try {
+
+        const { productId } = req.params;
+
+        const result = await ProductServices.deleteSingleProductIntoDb(productId);
+
+        res.status(200).json({
+            success: true,
+            message: result.deletedCount > 0 ? "Product deleted successfully" : "Product is not found",
+            data: result
+        })
+
+    } catch (error) {
+
+        res.status(500).json({
+            success: false,
+            message: (error as Error) || "Product deletion failed",
+            error: error
+        })
+
+    };
+}
+
+// 
+
 
 export const ProductController = {
     createProduct,
     getAllProducts,
+    updateSingleProduct,
+    deleteSingleProduct,
 }

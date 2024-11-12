@@ -18,7 +18,30 @@ const getAllProductsIntoDb = async () => {
 
 };
 
+// single product update
+const updateSingleProductIntoDb = async (productId: string, productData: TProduct) => {
+
+    const result = await Product.updateOne(
+        { id: productId },
+        { $set: productData }
+    );
+
+    // console.log(result, productId, productData);
+
+    return result;
+};
+
+// single product delete
+const deleteSingleProductIntoDb = async (productId: string) => {
+
+    const result = await Product.deleteOne({ id: productId });
+
+    return result;
+};
+
 export const ProductServices = {
     createProductIntoDb,
     getAllProductsIntoDb,
+    updateSingleProductIntoDb,
+    deleteSingleProductIntoDb,
 }
