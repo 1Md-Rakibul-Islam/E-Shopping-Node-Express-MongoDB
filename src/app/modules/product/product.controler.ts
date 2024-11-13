@@ -58,8 +58,6 @@ const updateSingleProduct = async (req: Request, res: Response) => {
 
         const productData = req.body;
 
-        console.log(productData, productId);
-
         const result = await ProductServices.updateSingleProductIntoDb(productId, productData);
 
         res.status(200).json({
@@ -104,7 +102,30 @@ const deleteSingleProduct = async (req: Request, res: Response) => {
     };
 }
 
-// 
+// Search for products query
+const searchProducts = async (req: Request, res: Response) => {
+    try {
+
+        const { searchTerm } = req.query;
+
+        console.log(searchTerm);
+
+        const result = await ProductServices.searchProductIntoDb(String(searchTerm));
+
+        res.status(200).json({
+            success: true,
+            message: "Products searched successfully",
+            data: result
+        })
+
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: (error as Error) || "Product search failed",
+            error: error
+        })
+    }
+}
 
 
 export const ProductController = {
@@ -112,4 +133,5 @@ export const ProductController = {
     getAllProducts,
     updateSingleProduct,
     deleteSingleProduct,
+    searchProducts
 }

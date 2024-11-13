@@ -39,9 +39,30 @@ const deleteSingleProductIntoDb = async (productId: string) => {
     return result;
 };
 
+// search product by name
+const searchProductIntoDb = async (searchTerm: string) => {
+
+    // let query = {};
+
+    // if (searchTerm) {
+    //     query = { $text: { $search: searchTerm } };
+    // }
+
+    // const result = await Product.find(query, {
+    //     score: { $meta: "textScore" }
+    // }).sort({
+    //     score: { $meta: "textScore" }
+    // });
+
+    const result = await Product.find({ $text: { $search: searchTerm } });
+
+    return result;
+}
+
 export const ProductServices = {
     createProductIntoDb,
     getAllProductsIntoDb,
     updateSingleProductIntoDb,
     deleteSingleProductIntoDb,
+    searchProductIntoDb
 }
