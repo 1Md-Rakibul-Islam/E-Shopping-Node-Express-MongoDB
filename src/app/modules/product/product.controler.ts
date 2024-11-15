@@ -108,8 +108,6 @@ const searchProducts = async (req: Request, res: Response) => {
 
         const { searchTerm } = req.query;
 
-        console.log(searchTerm);
-
         const result = await ProductServices.searchProductIntoDb(String(searchTerm));
 
         res.status(200).json({
