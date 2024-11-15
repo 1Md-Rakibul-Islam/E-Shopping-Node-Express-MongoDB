@@ -12,10 +12,9 @@ const createProductIntoDb = async (productData: TProduct) => {
 // get all products
 const getAllProductsIntoDb = async () => {
 
-    const result = await Product.find({});
+    const result = await Product.find();
 
     return result;
-
 };
 
 // single product update
