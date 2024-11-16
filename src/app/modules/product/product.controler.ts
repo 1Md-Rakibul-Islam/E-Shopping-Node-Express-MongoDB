@@ -27,15 +27,27 @@ const createProduct = async (req: Request, res: Response) => {
     }
 };
 
-// get all products controller
-const getAllProducts = async (req: Request, res: Response) => {
+// get all products and get search products by query controller
+const getProducts = async (req: Request, res: Response) => {
     try {
 
-        const result = await ProductServices.getAllProductsIntoDb();
+        const { searchTerm } = req.query;
+
+        let result;
+
+        if (searchTerm) {
+            // get searched products
+            result = await ProductServices.searchProductIntoDb(String(searchTerm));
+
+        } else {
+            // get all products
+            result = await ProductServices.getAllProductsIntoDb();
+
+        }
 
         res.status(200).json({
             success: true,
-            message: "Products fetched successfully",
+            message: searchTerm ? "Products searched successfully" : "Products fetched successfully",
             data: result
         })
 
@@ -50,7 +62,7 @@ const getAllProducts = async (req: Request, res: Response) => {
     };
 }
 
-// delete single product
+// update single product
 const updateSingleProduct = async (req: Request, res: Response) => {
     try {
 
@@ -102,34 +114,9 @@ const deleteSingleProduct = async (req: Request, res: Response) => {
     };
 }
 
-// Search for products query
-const searchProducts = async (req: Request, res: Response) => {
-    try {
-
-        const { searchTerm } = req.query;
-
-        const result = await ProductServices.searchProductIntoDb(String(searchTerm));
-
-        res.status(200).json({
-            success: true,
-            message: "Products searched successfully",
-            data: result
-        })
-
-    } catch (error) {
-        res.status(500).json({
-            success: false,
-            message: (error as Error) || "Product search failed",
-            error: error
-        })
-    }
-}
-
-
 export const ProductController = {
     createProduct,
-    getAllProducts,
+    getProducts,
     updateSingleProduct,
     deleteSingleProduct,
-    searchProducts
 }
