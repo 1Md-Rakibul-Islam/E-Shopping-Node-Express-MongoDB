@@ -12,6 +12,8 @@ const createOrder = async (req: Request, res: Response) => {
 
         const result = await OrderServices.createOrderIntoDb(zodParseData);
 
+        console.log(result);
+
         res.status(200).json({
             success: true,
             message: "Order created successfully",
@@ -21,8 +23,8 @@ const createOrder = async (req: Request, res: Response) => {
     } catch (error) {
         res.status(500).json({
             success: false,
-            message: (error as Error) || "Order creation failed",
-            error: error
+            message: (error as Error).message || "Order creation failed",
+            error: error,
         })
     }
 };
