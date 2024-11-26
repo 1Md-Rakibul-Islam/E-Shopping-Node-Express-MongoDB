@@ -2,39 +2,43 @@ import { Product } from "../product/product.model";
 import { TOrder } from "./order.interface";
 import { Order } from "./order.model";
 
-// create a new order
+// Create a new order
 const createOrderIntoDb = async (orderData: TOrder) => {
+    const { productId, quantity } = orderData;
 
-    const { productId, quantity, } = orderData;
-
-    // Check if product exists
+    // Check if the product exists using the custom method
     const productInventory = await Product.isProductExists(productId);
-
-    console.log(productInventory);
 
     if (!productInventory) {
         throw new Error('Product not found in inventory');
     }
 
-    // Check if there is enough stock in inventory
-    if (quantity > productInventory.inventory.quantity) {
-        throw new Error("Insufficient quantity available in inventory");
-    };
+    const { inventory } = productInventory;
 
-    // update the inventory quantity and inStock status
-
-    productInventory.inventory.quantity -= quantity;
-
-    // if quantity is 0, set inStock to false
-    if (productInventory.inventory.quantity === 0) {
-        productInventory.inventory.inStock = false;
+    // Check if the ordered quantity exceeds available quantity
+    if (quantity > inventory.quantity) {
+        throw new Error('Insufficient quantity available in inventory');
     }
 
-    await productInventory.save();
+    // Calculate updated inventory values
+    const updatedQuantity = inventory.quantity - quantity;
+    const inStock = updatedQuantity > 0;
 
-    const result = await Order.create(orderData);
+    // Update inventory with atomic operation
+    await Product.updateOne(
+        { id: productId },
+        {
+            $set: {
+                "inventory.quantity": updatedQuantity,
+                "inventory.inStock": inStock,
+            },
+        }
+    );
 
-    return result;
+    // Create the order
+    const newOrder = await Order.create(orderData);
+
+    return newOrder;
 };
 
 // get all orders
