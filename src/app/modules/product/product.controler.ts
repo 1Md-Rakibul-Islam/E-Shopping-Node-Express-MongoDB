@@ -99,14 +99,14 @@ const updateSingleProduct = async (req: Request, res: Response) => {
         res.status(200).json({
             success: true,
             message: result.modifiedCount > 0 ? "Product updated successfully" : "Product is not updated",
-            data: result
+            data: productData
         })
 
     } catch (error) {
 
         res.status(500).json({
             success: false,
-            message: (error as Error) || "Product deletion failed",
+            message: (error as Error) || "Product update failed",
             error: error
         })
 

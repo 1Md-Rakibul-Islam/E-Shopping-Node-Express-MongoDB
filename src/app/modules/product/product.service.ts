@@ -19,7 +19,9 @@ const getAllProductsIntoDb = async () => {
 
 // get single product
 const getSingleProductIntoDb = async (productId: string) => {
+
     const result = await Product.findById(productId);
+
     return result;
 }
 
@@ -27,11 +29,9 @@ const getSingleProductIntoDb = async (productId: string) => {
 const updateSingleProductIntoDb = async (productId: string, productData: TProduct) => {
 
     const result = await Product.updateOne(
-        { id: productId },
+        { _id: productId },
         { $set: productData }
     );
-
-    // console.log(result, productId, productData);
 
     return result;
 };
@@ -39,25 +39,13 @@ const updateSingleProductIntoDb = async (productId: string, productData: TProduc
 // single product delete
 const deleteSingleProductIntoDb = async (productId: string) => {
 
-    const result = await Product.deleteOne({ id: productId });
+    const result = await Product.deleteOne({ _id: productId });
 
     return result;
 };
 
 // search product by name
 const searchProductIntoDb = async (searchTerm: string) => {
-
-    // let query = {};
-
-    // if (searchTerm) {
-    //     query = { $text: { $search: searchTerm } };
-    // }
-
-    // const result = await Product.find(query, {
-    //     score: { $meta: "textScore" }
-    // }).sort({
-    //     score: { $meta: "textScore" }
-    // });
 
     const result = await Product.find({ $text: { $search: searchTerm } });
 
