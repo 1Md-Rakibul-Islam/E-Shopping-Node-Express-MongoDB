@@ -62,6 +62,30 @@ const getProducts = async (req: Request, res: Response) => {
     };
 }
 
+// get single product
+const getSingleProduct = async (req: Request, res: Response) => {
+    try {
+
+        const { productId } = req.params;
+
+        const result = await ProductServices.getSingleProductIntoDb(productId);
+
+        res.status(200).json({
+            success: true,
+            message: "Product fetched successfully",
+            data: result
+        })
+
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: (error as Error) || "Products fetching failed",
+            error: error
+        })
+    }
+};
+
+
 // update single product
 const updateSingleProduct = async (req: Request, res: Response) => {
     try {
@@ -117,6 +141,7 @@ const deleteSingleProduct = async (req: Request, res: Response) => {
 export const ProductController = {
     createProduct,
     getProducts,
+    getSingleProduct,
     updateSingleProduct,
     deleteSingleProduct,
 }

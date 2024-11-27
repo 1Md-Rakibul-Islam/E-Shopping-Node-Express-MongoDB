@@ -17,6 +17,12 @@ const getAllProductsIntoDb = async () => {
     return result;
 };
 
+// get single product
+const getSingleProductIntoDb = async (productId: string) => {
+    const result = await Product.findById(productId);
+    return result;
+}
+
 // single product update
 const updateSingleProductIntoDb = async (productId: string, productData: TProduct) => {
 
@@ -61,6 +67,7 @@ const searchProductIntoDb = async (searchTerm: string) => {
 export const ProductServices = {
     createProductIntoDb,
     getAllProductsIntoDb,
+    getSingleProductIntoDb,
     updateSingleProductIntoDb,
     deleteSingleProductIntoDb,
     searchProductIntoDb

@@ -15,10 +15,6 @@ export const inventoryValidationSchema = z.object({
 });
 
 export const productValidationSchema = z.object({
-    id: z
-        .string()
-        .trim()
-        .min(1, "Product ID is required"),
     name: z
         .string()
         .trim()
