@@ -3,7 +3,6 @@ import { TProduct } from "./product.interface";
 
 // create product
 const createProductIntoDb = async (productData: TProduct) => {
-
     const result = await Product.create(productData);
 
     return result;
@@ -11,7 +10,6 @@ const createProductIntoDb = async (productData: TProduct) => {
 
 // get all products
 const getAllProductsIntoDb = async () => {
-
     const result = await Product.find();
 
     return result;
@@ -19,18 +17,19 @@ const getAllProductsIntoDb = async () => {
 
 // get single product
 const getSingleProductIntoDb = async (productId: string) => {
-
     const result = await Product.findById(productId);
 
     return result;
-}
+};
 
 // single product update
-const updateSingleProductIntoDb = async (productId: string, productData: TProduct) => {
-
+const updateSingleProductIntoDb = async (
+    productId: string,
+    productData: TProduct,
+) => {
     const result = await Product.updateOne(
         { _id: productId },
-        { $set: productData }
+        { $set: productData },
     );
 
     return result;
@@ -38,7 +37,6 @@ const updateSingleProductIntoDb = async (productId: string, productData: TProduc
 
 // single product delete
 const deleteSingleProductIntoDb = async (productId: string) => {
-
     const result = await Product.deleteOne({ _id: productId });
 
     return result;
@@ -46,11 +44,10 @@ const deleteSingleProductIntoDb = async (productId: string) => {
 
 // search product by name
 const searchProductIntoDb = async (searchTerm: string) => {
-
     const result = await Product.find({ $text: { $search: searchTerm } });
 
     return result;
-}
+};
 
 export const ProductServices = {
     createProductIntoDb,
@@ -58,5 +55,5 @@ export const ProductServices = {
     getSingleProductIntoDb,
     updateSingleProductIntoDb,
     deleteSingleProductIntoDb,
-    searchProductIntoDb
-}
+    searchProductIntoDb,
+};

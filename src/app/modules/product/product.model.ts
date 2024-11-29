@@ -1,4 +1,3 @@
-
 import { model, Schema } from "mongoose";
 import { ProductModel, TProduct, TVariant } from "./product.interface";
 
@@ -6,12 +5,12 @@ const VariantSchema = new Schema<TVariant>({
     type: {
         type: String,
         required: true,
-        enum: ['Color', 'Size', 'Storage Capacity', 'Other'],
+        enum: ["Color", "Size", "Storage Capacity", "Other"],
     },
     value: {
         type: String,
-        required: true
-    }
+        required: true,
+    },
 });
 
 const InventorySchema = new Schema({
@@ -22,8 +21,8 @@ const InventorySchema = new Schema({
     },
     inStock: {
         type: Boolean,
-        required: true
-    }
+        required: true,
+    },
 });
 
 const productSchema = new Schema<TProduct>({
@@ -59,15 +58,14 @@ const productSchema = new Schema<TProduct>({
     inventory: {
         type: InventorySchema,
         required: [true, "Product inventory is required"],
-    }
-})
-
+    },
+});
 
 // create a custom static method
 productSchema.statics.isProductExists = async function (id: string) {
     const existingProduct = await Product.findOne({ _id: id });
 
     return existingProduct;
-}
+};
 
-export const Product = model<TProduct, ProductModel>("Product", productSchema)
+export const Product = model<TProduct, ProductModel>("Product", productSchema);
