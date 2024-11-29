@@ -3,57 +3,57 @@ import { TProduct } from "./product.interface";
 
 // create product
 const createProductIntoDb = async (productData: TProduct) => {
-    const result = await Product.create(productData);
+  const result = await Product.create(productData);
 
-    return result;
+  return result;
 };
 
 // get all products
 const getAllProductsIntoDb = async () => {
-    const result = await Product.find();
+  const result = await Product.find();
 
-    return result;
+  return result;
 };
 
 // get single product
 const getSingleProductIntoDb = async (productId: string) => {
-    const result = await Product.findById(productId);
+  const result = await Product.findById(productId);
 
-    return result;
+  return result;
 };
 
 // single product update
 const updateSingleProductIntoDb = async (
-    productId: string,
-    productData: TProduct,
+  productId: string,
+  productData: TProduct,
 ) => {
-    const result = await Product.updateOne(
-        { _id: productId },
-        { $set: productData },
-    );
+  const result = await Product.updateOne(
+    { _id: productId },
+    { $set: productData },
+  );
 
-    return result;
+  return result;
 };
 
 // single product delete
 const deleteSingleProductIntoDb = async (productId: string) => {
-    const result = await Product.deleteOne({ _id: productId });
+  const result = await Product.deleteOne({ _id: productId });
 
-    return result;
+  return result;
 };
 
 // search product by name
 const searchProductIntoDb = async (searchTerm: string) => {
-    const result = await Product.find({ $text: { $search: searchTerm } });
+  const result = await Product.find({ $text: { $search: searchTerm } });
 
-    return result;
+  return result;
 };
 
 export const ProductServices = {
-    createProductIntoDb,
-    getAllProductsIntoDb,
-    getSingleProductIntoDb,
-    updateSingleProductIntoDb,
-    deleteSingleProductIntoDb,
-    searchProductIntoDb,
+  createProductIntoDb,
+  getAllProductsIntoDb,
+  getSingleProductIntoDb,
+  updateSingleProductIntoDb,
+  deleteSingleProductIntoDb,
+  searchProductIntoDb,
 };

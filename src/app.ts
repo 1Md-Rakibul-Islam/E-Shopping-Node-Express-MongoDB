@@ -15,23 +15,23 @@ app.use("/api/products", ProductRoutes);
 app.use("/api/orders", OrderRoutes);
 
 app.get("/", (req: Request, res: Response) => {
-    const info = {
-        name: "Inventory Management System",
-        version: "1.0.0",
-    };
+  const info = {
+    name: "Inventory Management System",
+    version: "1.0.0",
+  };
 
-    res.status(200).json({
-        status: 200,
-        data: info,
-        message: "success",
-    });
+  res.status(200).json({
+    status: 200,
+    data: info,
+    message: "success",
+  });
 });
 
 app.all("*", (req: Request, res: Response) => {
-    res.status(400).json({
-        success: false,
-        message: "Route is not found",
-    });
+  res.status(400).json({
+    success: false,
+    message: "Route is not found",
+  });
 });
 
 export default app;
