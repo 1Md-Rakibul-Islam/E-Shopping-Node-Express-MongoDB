@@ -26,7 +26,7 @@ const createOrderIntoDb = async (orderData: TOrder) => {
 
     // Update inventory with atomic operation
     await Product.updateOne(
-        { id: productId },
+        { _id: productId },
         {
             $set: {
                 "inventory.quantity": updatedQuantity,

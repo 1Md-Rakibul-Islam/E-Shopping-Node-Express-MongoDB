@@ -65,7 +65,7 @@ const productSchema = new Schema<TProduct>({
 
 // create a custom static method
 productSchema.statics.isProductExists = async function (id: string) {
-    const existingProduct = await Product.findOne({ id: id });
+    const existingProduct = await Product.findOne({ _id: id });
 
     return existingProduct;
 }
