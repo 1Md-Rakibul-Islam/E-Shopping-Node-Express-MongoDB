@@ -11,7 +11,6 @@ export type TInventory = {
 };
 
 export type TProduct = {
-  // save(): unknown,
   name: string;
   description: string;
   price: number;
