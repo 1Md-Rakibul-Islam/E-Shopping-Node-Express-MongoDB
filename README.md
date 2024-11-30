@@ -9,7 +9,7 @@
 - Get all products.
 - Get single product by ID.
 - Add orders.
-- Get orders.
+- Get orders by email.
 
 ## Technologies Used
 
